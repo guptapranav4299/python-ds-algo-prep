@@ -145,12 +145,151 @@ class BinarySearchProblems:
             return ans
         except Exception as e:
             print("Error in square root--->",str(e))
+
+
+    @classmethod
+    def square_root_decimal(cls,number,p):
+        try:
+            ans = 0
+            low = 0
+            high = number
+            while low<=high:
+                mid = (low+high)//2
+                if mid**2 > number:
+                    high = mid - 1
+                elif mid**2 <= number:
+                   ans = mid
+                   low = mid + 1
+
+            increase = 0.1
+            for i in range(0,p):
+                while (ans**2 <= number):
+                    ans +=increase
+                    # print(ans)
+
+                ans = ans - increase
+                increase = increase/10.0
+            return ans
+        except Exception as e:
+            print("Error in square root--->",str(e))
+
+    @classmethod
+    def rotatedSearch(cls,arr,element):
+        try:
+            low = 0
+            high = len(arr) - 1
+            while(low<=high):
+                mid = (low+high)//2
+
+                if arr[mid] == element:
+                    return mid
+                # left side
+                if arr[low] <= arr[mid]:
+                    if (element > arr[low] and element < arr[mid]):
+                        high = mid - 1
+                    else:
+                        low = mid + 1
+                else:
+                    if( element > arr[mid+1] and element < arr[high]):
+                        low = mid + 1
+                    else:
+                        high = mid - 1
+
+            return -1
+        except Exception as e:
+            raise Exception("Error in rotated search----->",str(e))
+
+
+
+    @classmethod
+    def canPlaceBird(cls,arr,n,b,sep):
+        try:
+            birds = 1
+            location = arr[0]
+            for i in range(1,n):
+                current_location = arr[i]
+                if (current_location-location >= sep):
+                    birds+=1
+                    location = current_location
+                    if birds == b:
+                        return True
+
+            return False
+        except Exception as e:
+            raise Exception("Error in can place bird---->",str(e))
+    @classmethod
+    def angryBirds(cls,arr,n,b):
+        try:
+            low = 0
+            high = arr[n-1] - arr[0]
+            ans = -1
+            while low <= high:
+                mid = (low+high)//2
+                canReplace = cls.canPlaceBird(arr,n,b,mid)
+                if canReplace:
+                    ans = mid
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            return ans
+        except Exception as e:
+            raise Exception("Error in angry birds------>",str(e))
+
+
+# this solution is for Majority element in array [count> n/2]
+class MooreVotingAlgo:
+    @classmethod
+    def findMajorityElement(cls,arr):
+        try:
+            count = 0
+            idx = 0
+            for i in range(len(arr)):
+                if arr[idx] == arr[i]:
+                    count +=1
+                else:
+                    count -= 1
+                if count==0:
+                    idx = i
+                    count = 1
+            return arr[idx]
+        except Exception as e:
+            raise Exception("Error in find majority element--->",str(e))
+
+
+    @classmethod
+    def checkMajority(cls,arr,element):
+        try:
+            count = 0
+            for i in range(len(arr)):
+                if arr[i] == element:
+                    count+=1
+
+            if count > (len(arr)//2):
+                return True
+            else:
+                return False
+        except Exception as e:
+            raise Exception("Error in check majority element--->",str(e))
+
+    @classmethod
+    def printMajorityElement(cls,arr):
+        try:
+            element = cls.findMajorityElement(arr)
+            if cls.checkMajority(arr,element):
+                return element
+            else:
+                return -1
+
+        except Exception as e:
+            raise Exception("Error in printing majority element")
+
 if __name__ == '__main__':
     # sorted list
     # sample_list = [10,10,40,40,70,70,70]
     # sample_list = [20,70,70,70,70,70,70]
+    # sample_list = [4,5,6,7,1,2,3]
     # oneslist = [1,1,1,1,1,0,0,0]
-    oneslist = [0,0,0]
+    # oneslist = [0,0,0]
     # sample_list = [1,1,1,1,1,0,0,0]
     element = 70
     # print(linear_search(sample_list,element))
@@ -161,5 +300,13 @@ if __name__ == '__main__':
     # print(obj.last_occurence(sample_list,element))
     # print(obj.count_occurence(sample_list,element))
     # print(obj.countOnes(oneslist,len(oneslist)))
-    print(obj.square_root_int(element))
+    # print(obj.square_root_int(element))
+    # obj1 = MooreVotingAlgo()
+    # sample_list = [1,2,3,3,4,3,3,3,3,3]
+    # print(obj1.printMajorityElement(sample_list))
+    # print(obj.rotatedSearch(sample_list,2))
+    # print(round(obj.square_root_decimal(element,3),3))
+    sample_list = [1,2,4,8,9]
+    print(obj.angryBirds(sample_list,5,3))
+
 
