@@ -80,6 +80,38 @@ class SubArrayProblems:
         except Exception as e:
             raise Exception("Error in sub array sum prefix--->",str(e))
 
+    @classmethod
+    def kadaneAlgoSubArraySum(cls,arr):
+        try:
+            current_sum = 0
+            largest_sum = arr[0]
+            for i in range(0,len(arr)):
+                if current_sum + arr[i] < arr[i]:
+                    current_sum = arr[i]
+                else:
+                    current_sum = current_sum + arr[i]
+                largest_sum = max(largest_sum,current_sum)
+            return largest_sum
+        except Exception as e:
+            raise Exception("Error in kadane's algo---->",str(e))
+
+
+    @classmethod
+    def maxSubArrayProduct(cls,arr):
+        try:
+            current_product = 1
+            largest_product = arr[0]
+            for i in range(1,len(arr)):
+                if current_product * arr[i] < arr[i]:
+                    current_product = arr[i]
+                else:
+                    current_product = current_product * arr[i]
+                largest_product = max(largest_product,current_product)
+
+            return largest_product
+        except Exception as e:
+            raise Exception("Error in max subaarrray product----->",str(e))
+
 class QuestionClass:
     pass
 
@@ -87,10 +119,13 @@ class QuestionClass:
 if __name__ == '__main__':
     obj = QuestionClass()
     obj1 = SubArrayProblems()
-    arrSum = [-2,3,4,-1,5,-12,6,1,3]
+    # arrSum = [-2,3,4,-1,5,-12,6,1,3]
+    arrSum = [-2,0]
     arr = [10,20,5,15,8,9]
-    print(obj1.subArraySumBruteForce(arrSum))
-    print(obj1.subArraySumPrefixSum(arrSum))
-    print(obj1.printPairs(arr))
-    print(obj1.printAllSubLists(arr))
-    obj1.printAllSubListsRecursion(arr,0,0)
+    # print(obj1.subArraySumBruteForce(arrSum))
+    # print(obj1.subArraySumPrefixSum(arrSum))
+    # print(obj1.printPairs(arr))
+    # print(obj1.printAllSubLists(arr))
+    # obj1.printAllSubListsRecursion(arr,0,0)
+    # print(obj1.kadaneAlgoSubArraySum(arrSum))
+    print(obj1.maxSubArrayProduct(arrSum))
