@@ -217,6 +217,7 @@ class BinarySearchProblems:
             return False
         except Exception as e:
             raise Exception("Error in can place bird---->",str(e))
+
     @classmethod
     def angryBirds(cls,arr,n,b):
         try:
