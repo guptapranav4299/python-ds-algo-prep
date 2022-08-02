@@ -34,7 +34,6 @@ def rod_cutting_tabular(prices, n):
     return val[n]
 
 
-
 if __name__ == "__main__":
     prices = [1, 3, 4, 5, 7, 9, 10, 11]
     n = 8
