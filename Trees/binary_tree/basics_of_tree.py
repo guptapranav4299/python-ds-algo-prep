@@ -57,7 +57,7 @@ class Traversal:
 
     def size_tree(self, root):
         if root is None:
-            return 0
+            return -1
 
         height_left = self.size_tree(root.left)
         height_right = self.size_tree(root.right)
